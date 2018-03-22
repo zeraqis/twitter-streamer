@@ -4,7 +4,7 @@ from tweepy.streaming import StreamListener
 import json
 import os
 
-credentials_dict = json.loads(os.environ['APP_CREDENTIALS'])
+credentials_dict = json.load(open(os.environ['APP_CREDENTIALS']))
 
 # Variables that contains the user credentials to access Twitter API
 access_token = credentials_dict['access_token']
