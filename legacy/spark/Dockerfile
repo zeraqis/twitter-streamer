@@ -1,7 +1,7 @@
 FROM debian:jessie
 MAINTAINER Getty Images "https://github.com/gettyimages"
 
-COPY app /app
+COPY ../../app /app
 
 RUN apt-get update \
  && apt-get install -y locales nano \
