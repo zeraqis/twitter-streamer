@@ -10,7 +10,8 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka:
-    image: confluentinc/cp-kafka:latest
+    build: kafka
+    image: kafka
     network_mode: host
     depends_on:
       - zookeeper
@@ -20,14 +21,11 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:29092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
-  app:
-    build: app
-    image: app
-    environment:
-      APP_CREDENTIALS: /run/secrets/credentials
-    secrets:
-      - credentials
-
-secrets:
-  credentials:
-   file: credentials.json
+  logstash:
+    build: logstash
+    image: logstash
+    network_mode: host
+    depends_on:
+      - kafka
+    env_file:
+      - credentials.env
